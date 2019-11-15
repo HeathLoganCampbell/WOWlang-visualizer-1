@@ -113,7 +113,7 @@ $(document).ready(function () {
   }
 
   function processLine(mem, mem_pos) {
-
+    $('#memory-container').find('span').contents().unwrap();
     var startPos = Math.floor(mem_pos / 8) * 8;
     var output = startPos.toString().padStart(8,0) + " ";
     var display = "";
