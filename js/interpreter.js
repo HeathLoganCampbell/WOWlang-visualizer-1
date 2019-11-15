@@ -22,7 +22,7 @@ $(document).ready(function () {
   });
 
   async function interpret(s) {
-    $("#" + HTML_OUTPUT_ID).val("");
+    $("#memory-container").html("<div id=\"line0\">"+ "00000000 00 00 00 00 00 00 00 00 ........</div><div id=\"line1\">"+ "00000008 00 00 00 00 00 00 00 00 ........</div><div id=\"line2\">"+ "00000016 00 00 00 00 00 00 00 00 ........</div>");
     var mem = [0];
     var mem_pos = 0;
     var reg = 0;
@@ -46,8 +46,8 @@ $(document).ready(function () {
             mem.push(0);
           }
           mem_pos++;
-          if ($('#' + HTML_MEMORY_ID).children().last().attr('id') != ("line" + Math.floor(mem_pos / 8))) {
-            $("#" + HTML_MEMORY_ID).append("<div id=\"line" + Math.floor(mem_pos / 8) + "\">0 0 0 0 0 0 0 0</div>");
+          if (parseInt($('#' + HTML_MEMORY_ID).children().last().attr('id').substring(4)) < Math.floor(mem_pos / 8)) {
+            $("#" + HTML_MEMORY_ID).append("<div id=\"line" + Math.floor(mem_pos / 8) + "\">"+  (Math.floor(mem_pos / 8) * 8).toString().padStart(8,0) +" 00 00 00 00 00 00 00 00 ........</div>");
           }
           break;
 
@@ -115,7 +115,7 @@ $(document).ready(function () {
   function processLine(mem, mem_pos) {
 
     var startPos = Math.floor(mem_pos / 8) * 8;
-    var output = "";
+    var output = startPos.toString().padStart(8,0) + " ";
     var display = "";
     for (var i = startPos; i < startPos + 8; i++) {
       if (i == mem_pos) {
