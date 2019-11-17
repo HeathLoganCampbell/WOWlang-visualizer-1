@@ -14,7 +14,7 @@
 
 
     <div id = "editorContainer">
-        <textarea id="editor" rows="4" cols="50" spellcheck="false">
+        <textarea id="editor" rows="4" cols="50" spellcheck="false" >
 WOW WOW WOW WOW WOW WOW WOW WOW WOw woW WOW WOW WOW WOW WOW WOW 
 WOW WOW WOW woW WOW WOW WOW WOW WOW WOW WOW WOW WOW WOW WOW WOW 
 WOW woW WOW WOW WOW WOW woW WOW WOW WOW WOW WOW WOW WOW WOW WOW 
@@ -28,14 +28,30 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
 
 <div>
     Delay
-  <input id="delay" type="range" min="1" max="10" value="5">
+  <input id="delay" type="range" min="0" max="10" value="5">
 </div>
 <div>
     Input (space separated integer values)
     <input id="stdin">
 </div>
 
+
+
+
+
+    <button id="interpret" type="button">Interpret</button>
+
+    <div>
+        <textarea id="output" rows="4" cols="50"></textarea>
+    </div>
+
     <div id="memory-container">
+        <select>
+          <option value="volvo">HEX</option>
+          <option value="saab">DEC</option>
+        </select>
+
+
         <div id="line0">
             00000000 00 00 00 00 00 00 00 00 ........
         </div>
@@ -46,16 +62,6 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
             00000016 00 00 00 00 00 00 00 00 ........
         </div>
     </div>
-    </div>
 
-
-
-    <button id="interpret" type="button">Interpret</button>
-
-    <div>
-        <textarea id="output" rows="4" cols="50">
-
-        </textarea>
-    </div>
 </body>
 </html>

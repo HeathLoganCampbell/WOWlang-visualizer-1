@@ -10,8 +10,14 @@
 }
 
 #memory-container{
+	position: fixed;
 	font-family: monospace;
-
+	width: 50%;
+	height: 15vh;
+	right:0;
+	bottom:0;
+	background-color: blue;
+	font-size: 15px;
 }
 
 .current-memory{

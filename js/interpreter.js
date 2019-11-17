@@ -17,6 +17,8 @@ $(document).ready(function () {
   const HTML_DELAY_ID = "delay";
   const HTML_MEMORY_ID = "memory-container";
 
+  const MEMORY_SIZE_LIMIT = 256;
+
   $("#" + HTML_RUN_BTN_ID).click(function () {
     interpret(document.getElementById(HTML_EDITOR_ID).value)
   });
@@ -33,11 +35,11 @@ $(document).ready(function () {
     var i = 0;
     while (i < s.length - 2) {
       await sleep($("#" + HTML_DELAY_ID).val() * 10);
-      i = i + 3;
+      i += 3;
       switch (s.substring(i - 3, i)) {
 
         case CMD_MEMORY_DEC:
-          mem[mem_pos]--;
+          mem[mem_pos] = (((mem[mem_pos]-1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           break;
 
@@ -52,7 +54,7 @@ $(document).ready(function () {
           break;
 
         case CMD_INPUT:
-          mem[mem_pos] = parseInt(input[current_input_pos++]);
+          mem[mem_pos] = ((parseInt(input[current_input_pos++])%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           break;
 
@@ -79,7 +81,7 @@ $(document).ready(function () {
           break;
 
         case CMD_MEMORY_INC:
-          mem[mem_pos]++;
+          mem[mem_pos] = (((mem[mem_pos]+1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           break;
 
@@ -92,7 +94,7 @@ $(document).ready(function () {
             i++;
           }
           else {
-            i = i - 2;
+            i -= 2;
           }
           break;
         case "WOO":
@@ -101,11 +103,11 @@ $(document).ready(function () {
             i++;
           }
           else {
-            i = i - 2;
+            i -= 2;
           }
           break;
         default:
-          i = i - 2;
+          i -= 2;
       }
     }
 
