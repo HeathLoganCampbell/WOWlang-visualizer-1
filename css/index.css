@@ -1,12 +1,7 @@
-#editor{
- background-color: #011627;
- color: #DCDC9D;
- font-size: 1em;
- font-family: "Courier New";
- float: left;
- width: 50%;
- height: 100vh;
- resize: none;
+.CodeMirror{
+	float: left;
+ 	width: 50%;
+ 	height: 100vh;
 }
 
 #memory-container{

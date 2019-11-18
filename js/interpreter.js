@@ -1,8 +1,13 @@
 
 $(document).ready(function () {
-  var myCodeMirror = CodeMirror.fromTextArea($("#editor")[0],{
-    lineNumbers: true
+  var editor = CodeMirror.fromTextArea($("#editor")[0],{
+    lineNumbers: true,
+    theme: "blackboard",
+    styleSelectedText: true
   });
+
+
+  var mark = editor.markText({line: 6, ch: 1}, {line: 6, ch: 10}, {css: "background-color : red"});
 
   const CMD_MEMORY_INC = "WOW"
   const CMD_MEMORY_DEC = "wow"
@@ -28,6 +33,7 @@ $(document).ready(function () {
   });
 
   async function interpret(s) {
+    editor.setOption("readOnly", "nocursor");
     $("#memory-container").html("<div id=\"line0\">"+ "00000000 00 00 00 00 00 00 00 00 ........</div><div id=\"line1\">"+ "00000008 00 00 00 00 00 00 00 00 ........</div><div id=\"line2\">"+ "00000016 00 00 00 00 00 00 00 00 ........</div>");
     var mem = [0];
     var mem_pos = 0;
@@ -114,8 +120,7 @@ $(document).ready(function () {
           i -= 2;
       }
     }
-
-
+    editor.setOption("readOnly", false);
   }
 
   function processLine(mem, mem_pos) {
@@ -150,8 +155,14 @@ $(document).ready(function () {
 
     $("#line" + Math.floor(mem_pos / 8)).html(output);
   }
+
+  function highlightElement(pos, input){
+
+  }
+
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
+
 
 });
