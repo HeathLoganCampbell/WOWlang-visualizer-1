@@ -48,7 +48,7 @@ $(document).ready(function () {
 
     var i = 0;
     while (i < s.length - 2) {
-      await sleep($("#" + HTML_DELAY_ID).val() * 10);
+      await sleep($("#" + HTML_DELAY_ID).val() * 20);
       i += 3;
       switch (s.substring(i - 3, i)) {
         case CMD_MEMORY_DEC:
@@ -176,7 +176,7 @@ $(document).ready(function () {
     var currLine = 0;
 
     while (true){
-      if (pos>lineLengths[currLine]){
+      if (pos>=lineLengths[currLine]){
         pos-=lineLengths[currLine++];
       }
       else{
