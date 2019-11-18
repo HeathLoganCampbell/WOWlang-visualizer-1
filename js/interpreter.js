@@ -54,7 +54,7 @@ $(document).ready(function () {
           mem[mem_pos] = (((mem[mem_pos]-1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
-          await sleep($("#" + HTML_DELAY_ID).val() * 20);
+          await sleep($("#" + HTML_DELAY_ID).val() * 50);
           break;
 
         case CMD_REG_INC:
@@ -65,6 +65,7 @@ $(document).ready(function () {
           if (parseInt($('#' + HTML_MEMORY_ID).children().last().attr('id').substring(4)) < Math.floor(mem_pos / 8)) {
             $("#" + HTML_MEMORY_ID).append("<div id=\"line" + Math.floor(mem_pos / 8) + "\">"+  (Math.floor(mem_pos / 8) * 8).toString().padStart(8,0) +" 00 00 00 00 00 00 00 00 ........</div>");
           }
+          processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
           await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
@@ -86,6 +87,7 @@ $(document).ready(function () {
 
         case CMD_REG_DEC:
           mem_pos--;
+          processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
           await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
