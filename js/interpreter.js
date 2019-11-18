@@ -29,7 +29,7 @@ $(document).ready(function () {
   const MEMORY_SIZE_LIMIT = 256;
 
   $("#" + HTML_RUN_BTN_ID).click(function () {
-    interpret(document.getElementById(HTML_EDITOR_ID).value)
+    interpret(editor.getValue());
   });
 
   async function interpret(s) {
@@ -48,13 +48,13 @@ $(document).ready(function () {
 
     var i = 0;
     while (i < s.length - 2) {
-      await sleep($("#" + HTML_DELAY_ID).val() * 20);
       i += 3;
       switch (s.substring(i - 3, i)) {
         case CMD_MEMORY_DEC:
           mem[mem_pos] = (((mem[mem_pos]-1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
+          await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
 
         case CMD_REG_INC:
@@ -66,12 +66,14 @@ $(document).ready(function () {
             $("#" + HTML_MEMORY_ID).append("<div id=\"line" + Math.floor(mem_pos / 8) + "\">"+  (Math.floor(mem_pos / 8) * 8).toString().padStart(8,0) +" 00 00 00 00 00 00 00 00 ........</div>");
           }
           highlightElement(i-3,lineLengths,3);
+          await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
 
         case CMD_INPUT:
           mem[mem_pos] = ((parseInt(input[current_input_pos++])%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
+          await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
 
         case CMD_LOOP_CLOSE:
@@ -79,16 +81,19 @@ $(document).ready(function () {
             i = brac_open_pos[brac_open_pos.length - 1];
           }
           highlightElement(i-3,lineLengths,3);
+          await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
 
         case CMD_REG_DEC:
           mem_pos--;
           highlightElement(i-3,lineLengths,3);
+          await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
 
         case CMD_OUTPUT:
           document.getElementById(HTML_OUTPUT_ID).value += String.fromCharCode(mem[mem_pos]);
           highlightElement(i-3,lineLengths,3);
+          await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
 
         case CMD_LOOP_OPEN:
@@ -98,23 +103,27 @@ $(document).ready(function () {
             brac_open_pos.pop();
           }
           highlightElement(i-3,lineLengths,3);
+          await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
 
         case CMD_MEMORY_INC:
           mem[mem_pos] = (((mem[mem_pos]+1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
+          await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
 
         case CMD_RESET:
           mem[mem_pos] = 0;
           highlightElement(i-3,lineLengths,3);
+          await sleep($("#" + HTML_DELAY_ID).val() * 20);
           break;
         case "woo":
           if (s[i] == "w") {
             reg = mem[mem_pos];
             i++;
             highlightElement(i-3,lineLengths,4);
+            await sleep($("#" + HTML_DELAY_ID).val() * 20);
           }
           else {
             i -= 2;
@@ -125,6 +134,7 @@ $(document).ready(function () {
             mem[mem_pos] += reg;
             i++;
             highlightElement(i-3,lineLengths,4);
+            await sleep($("#" + HTML_DELAY_ID).val() * 20);
           }
           else {
             i -= 2;
