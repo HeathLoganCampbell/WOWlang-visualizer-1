@@ -1,5 +1,9 @@
 
 $(document).ready(function () {
+  var myCodeMirror = CodeMirror.fromTextArea($("#editor")[0],{
+    lineNumbers: true
+  });
+
   const CMD_MEMORY_INC = "WOW"
   const CMD_MEMORY_DEC = "wow"
   const CMD_REG_INC = "woW"

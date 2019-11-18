@@ -3,18 +3,22 @@
 <head>
     <title>WOWlang Visualizer</title>
     <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/codemirror.css">
+
     <script
   src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
   integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
   crossorigin="anonymous"></script>
     <script src="js/interpreter.js"></script>
+    <script src="js/codemirror.js"></script>
+    <script src="js/brainfuck.js"></script>
 </head>
 <body>
 
 
 
     <div id = "editorContainer">
-        <textarea id="editor" rows="4" cols="50" spellcheck="false" >
+        <textarea class="codemirror-textarea" id="editor" rows="4" cols="50" spellcheck="false" >
 WOW WOW WOW WOW WOW WOW WOW WOW WOw woW WOW WOW WOW WOW WOW WOW 
 WOW WOW WOW woW WOW WOW WOW WOW WOW WOW WOW WOW WOW WOW WOW WOW 
 WOW woW WOW WOW WOW WOW woW WOW WOW WOW WOW WOW WOW WOW WOW WOW 
