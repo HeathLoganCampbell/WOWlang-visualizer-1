@@ -6,18 +6,22 @@ $(document).ready(function () {
     styleSelectedText: true
   });
 
+  var WOW = new Audio('./sound/WOW.mp3');
+  var wow = new Audio('./sound/wow1.mp3');
 
   var mark = editor.markText({line: 0, ch: 0}, {line: 0, ch: 0});
 
-  const CMD_MEMORY_INC = "WOW"
-  const CMD_MEMORY_DEC = "wow"
-  const CMD_REG_INC = "woW"
-  const CMD_REG_DEC = "Wow"
-  const CMD_INPUT = "wOw"
-  const CMD_OUTPUT = "WoW"
-  const CMD_RESET = "w0w"
-  const CMD_LOOP_OPEN = "WOw"
-  const CMD_LOOP_CLOSE = "wOW"
+  const CMD_MEMORY_VAL_INC = "WOW";
+  const CMD_MEMORY_VAL_DEC = "wow";
+  const CMD_MEMORY_POS_INC = "woW";
+  const CMD_MEMORY_POS_DEC = "Wow";
+  const CMD_INPUT = "wOw";
+  const CMD_OUTPUT = "WoW";
+  const CMD_MEMORY_VAL_SET_ZERO = "w0w";
+  const CMD_LOOP_OPEN = "WOw";
+  const CMD_LOOP_CLOSE = "wOW";
+  const CMD_COPY_TO_REG = "woow";
+  const CMD_ADD_FROM_REG = "WOOW";
 
   const HTML_EDITOR_ID = "editor";
   const HTML_OUTPUT_ID = "output";
@@ -51,14 +55,17 @@ $(document).ready(function () {
     while (i < s.length - 2) {
       i += 3;
       switch (s.substring(i - 3, i)) {
-        case CMD_MEMORY_DEC:
+        case CMD_MEMORY_VAL_DEC:
+          wow.play();
           mem[mem_pos] = (((mem[mem_pos]-1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
           await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
+          wow.pause();
+          wow.currentTime = 0;
           break;
 
-        case CMD_REG_INC:
+        case CMD_MEMORY_POS_INC:
           if (mem_pos == mem.length - 1) {
             mem.push(0);
           }
@@ -86,7 +93,7 @@ $(document).ready(function () {
           await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
           break;
 
-        case CMD_REG_DEC:
+        case CMD_MEMORY_POS_DEC:
           mem_pos--;
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
@@ -109,42 +116,38 @@ $(document).ready(function () {
           await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
           break;
 
-        case CMD_MEMORY_INC:
+        case CMD_MEMORY_VAL_INC:
           mem[mem_pos] = (((mem[mem_pos]+1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
+          WOW.play();
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
           await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
+          WOW.pause();
+          WOW.currentTime = 0;
           break;
 
-        case CMD_RESET:
+        case CMD_MEMORY_VAL_SET_ZERO:
           mem[mem_pos] = 0;
           highlightElement(i-3,lineLengths,3);
           await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
           break;
-        case "woo":
-          if (s[i] == "w") {
-            reg = mem[mem_pos];
-            i++;
-            highlightElement(i-3,lineLengths,4);
-            await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
-          }
-          else {
-            i -= 2;
-          }
-          break;
-        case "WOO":
-          if (s[i] == "W") {
-            mem[mem_pos] += reg;
-            i++;
-            highlightElement(i-3,lineLengths,4);
-            await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
-          }
-          else {
-            i -= 2;
-          }
-          break;
         default:
-          i -= 2;
+          switch (s.substring(i - 3, i + 1)){
+            case CMD_COPY_TO_REG:
+              reg = mem[mem_pos];
+              i++;
+              highlightElement(i-3,lineLengths,4);
+              await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
+            break;
+            case CMD_ADD_FROM_REG:
+              mem[mem_pos] += reg;
+              i++;
+              highlightElement(i-3,lineLengths,4);
+              await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
+            break;
+            default:
+            i -=2;
+          }
       }
     }
     mark.clear();
