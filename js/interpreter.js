@@ -202,9 +202,6 @@ $(document).ready(function () {
         break;
       }
     }
-
-
-
   }
 
   function sleep(ms) {
