@@ -4,12 +4,18 @@
  	height: 100vh;
 }
 
+#controlContainer {
+	height: 100vh;
+	position: fixed;
+	right: 0;
+	width: 50%;
+}
+
 #memory-container{
 	position: fixed;
 	font-family: monospace;
 	width: 50%;
 	height: 15vh;
-	right:0;
 	bottom:0;
 	background-color: blue;
 	font-size: 15px;

@@ -4,7 +4,8 @@
     <title>WOWlang Visualizer</title>
     <link rel="stylesheet" href="css/codemirror.css">
     <link rel="stylesheet" href="css/blackboard.css">
-    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <script
   src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -14,11 +15,9 @@
     <script src="js/codemirror.js"></script>
     <script src="js/brainfuck.js"></script>
     <script src="js/mark-selection.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body>
-
-
-
     <div id = "editorContainer">
         <textarea class="codemirror-textarea" id="editor" rows="4" cols="50" spellcheck="false" >
 WOW WOW WOW WOW WOW WOW WOW WOW WOw woW WOW WOW WOW WOW WOW WOW 
@@ -32,42 +31,47 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
         </textarea>
     </div>
 
-<div>
-    Delay
-  <input id="delay" type="range" min="0" max="10" value="5">
-</div>
-<div>
-    Input (space separated integer values)
-    <input id="stdin">
-</div>
+    <div id = "controlContainer">
+        <div>
+            <div>
+                <label for="delayRange" class="form-label">Delay</label>
+                <input type="range" class="form-range" id="delayRange" min="0" max="10" value="5">
+            </div>
+    
+            <div>
+                <label for="stdin">input</label>
+                <input class="form-control" id="stdin">
+                <small id="stdin" class="form-text text-muted">space separated integer values</small>
+            </div>
+    
+            <button id="interpret" type="button">Interpret</button>
+    
+            <div>
+                <label for="output">output</label>
+                <textarea class="form-control" id="output" rows="4" cols="50"></textarea>
+            </div>
+        </div>
 
-
-
-
-
-    <button id="interpret" type="button">Interpret</button>
-
-    <div>
-        <textarea id="output" rows="4" cols="50"></textarea>
+        <div id="memory-container">
+            <select>
+              <option value="hex">HEX</option>
+              <option value="dec">DEC</option>
+            </select>
+    
+            <div id="line0">
+                00000000 00 00 00 00 00 00 00 00 ........
+            </div>
+    
+            <div id="line1">
+                00000008 00 00 00 00 00 00 00 00 ........
+            </div>
+    
+            <div id="line2">
+                00000016 00 00 00 00 00 00 00 00 ........
+            </div>
+        </div>
     </div>
 
-    <div id="memory-container">
-        <select>
-          <option value="volvo">HEX</option>
-          <option value="saab">DEC</option>
-        </select>
-
-
-        <div id="line0">
-            00000000 00 00 00 00 00 00 00 00 ........
-        </div>
-        <div id="line1">
-            00000008 00 00 00 00 00 00 00 00 ........
-        </div>
-        <div id="line2">
-            00000016 00 00 00 00 00 00 00 00 ........
-        </div>
-    </div>
 
 </body>
 </html>
