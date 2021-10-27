@@ -1,12 +1,17 @@
+
 * 
 {
-    box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+.navbar {
+	height: 56px;
 }
 
 .CodeMirror{
 	float: left;
  	width: 50%;
- 	height: 100vh;
+ 	height: calc(100vh - 56px);
 }
 
 #controlContainer {
@@ -16,8 +21,11 @@
 	width: 50%;
 }
 
-#memory-container
-{
+#inputContainer {
+	padding: 5%;
+}
+  
+#memory-container{
 	position: fixed;
 	font-family: monospace;
 	width: 50%;
