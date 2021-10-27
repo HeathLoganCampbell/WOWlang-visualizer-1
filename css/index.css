@@ -1,3 +1,8 @@
+* 
+{
+    box-sizing: border-box;
+}
+
 .CodeMirror{
 	float: left;
  	width: 50%;
@@ -11,25 +16,18 @@
 	width: 50%;
 }
 
-#memory-container{
+#memory-container
+{
 	position: fixed;
 	font-family: monospace;
 	width: 50%;
-	height: 15vh;
-	bottom:0;
-	background-color: blue;
-	font-size: 15px;
+	height: 25vh;
+	bottom: 0;
+	font-size: 1vw;
+	padding: 15px;
+	text-align: center;
 }
 
 .current-memory{
 	color: red;
-}
-
-body, html{
-	padding: 0;
-	margin: 0;
-}
-
-* {
-    box-sizing: border-box;
 }

@@ -52,12 +52,12 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
             </div>
         </div>
 
-        <div id="memory-container">
-            <select>
+        <div id="memory-container" class="bg-light">
+            <select class="form-select" >
               <option value="hex">HEX</option>
               <option value="dec">DEC</option>
             </select>
-    
+<!--     
             <div id="line0">
                 00000000 00 00 00 00 00 00 00 00 ........
             </div>
@@ -68,10 +68,73 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
     
             <div id="line2">
                 00000016 00 00 00 00 00 00 00 00 ........
-            </div>
+            </div> -->
+
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">0x</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Ascii</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>00000000</td>
+                        <td data-toggle="tooltip" data-placement="top" title="0x00000001">00</td>
+                        <td data-toggle="tooltip" data-placement="top" title="0x00000002">00</td>
+                        <td data-toggle="tooltip" data-placement="top" title="0x00000003">00</td>
+                        <td>00</td>
+
+                        <td>00</td>
+                        <td>00</td>
+                        <td>00</td>
+                        <td>00</td>
+                        <td>........</td>
+                    </tr>
+                    <tr>
+                        <td>00000008</td>
+                        <td>00</td>
+                        <td>00</td>
+                        <td>00</td>
+                        <td>00</td>
+
+                        <td>00</td>
+                        <td>00</td>
+                        <td>00</td>
+                        <td>00</td>
+                        <td>........</td>
+                    </tr>
+
+                    <tr>
+                        <td>00000016</td>
+                        <td alt="Exmaple">00</td>
+                        <td>00</td>
+                        <td>00</td>
+                        <td>00</td>
+
+                        <td>00</td>
+                        <td>00</td>
+                        <td>00</td>
+                        <td>00</td>
+                        <td>........</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
-
+    <script>
+        $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </body>
 </html>

@@ -252,14 +252,82 @@ $(document).ready(function () {
     mark.clear();
     editor.setOption("readOnly", false);
   }
+  
+  function memoryToAssci(memory, index, length)
+  {
+    var stringbuilder = "";
+
+    for(var i = 0; i < length; i++)
+    {
+      var cellVal = memory[index + i];
+      var isAsciiChar = (32 <= cellVal && cellVal <= 126)
+
+      if (cellVal == undefined || !isAsciiChar) 
+      {
+        stringbuilder += "."
+        continue;
+      }
+      
+      stringbuilder += String.fromCharCode(memory[index + i]);
+    }
+
+    return stringbuilder;
+  }
+
+  function memoryToCellList(memory, byteLine, length)
+  {
+    var cells = {}
+
+    for(var i = 0; i < length; i++)
+    {
+      var value = memory[i + byteLine]
+      if(value == undefined)
+      {
+        value = 0
+      }
+
+      cells[i + byteLine] = { Value: value }
+    }
+
+    return cells;
+  }
+
+  /*
+  We assume that every row will contain 8 bytes
+
+  {
+    StartingCellIndex: 0,
+    Cells: {
+      0: { Value: 0 },
+      1: { Value: 0 },
+      2: { Value: 0 },
+      ...
+    },
+    AsciiValue: "........"
+  }
+  */
+  function memoryToDisplayObj(memory, byteLine, length)
+  {
+    var obj = {
+      StartingCellIndex: byteLine,
+      Cells: memoryToCellList(memory, byteLine, length),
+      AsciiValue: memoryToAssci(memory, byteLine, length)
+    };
+
+    return obj;
+  }
 
   function processLine(mem, mem_pos) 
   {
     $('#memory-container').find('span').contents().unwrap();
     var startPos = Math.floor(mem_pos / 8) * 8;
     var output = startPos.toString().padStart(8,0) + " ";
+
+    console.log(memoryToDisplayObj(mem, startPos, 8))
+
     var display = "";
-    for (var i = startPos; i < startPos + 8; i++) {
+    for (var i = startPos; i < startPos + 8; i++)
+    {
       if (i == mem_pos)
       {
         output += " <span class=\"current-memory\"> "
