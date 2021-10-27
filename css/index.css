@@ -1,7 +1,11 @@
+.navbar {
+	height: 56px;
+}
+
 .CodeMirror{
 	float: left;
  	width: 50%;
- 	height: 100vh;
+ 	height: calc(100vh - 56px);
 }
 
 #controlContainer {
@@ -9,6 +13,10 @@
 	position: fixed;
 	right: 0;
 	width: 50%;
+}
+
+#inputContainer {
+	padding: 5%;
 }
 
 #memory-container{

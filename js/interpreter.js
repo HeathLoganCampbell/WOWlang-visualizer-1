@@ -26,8 +26,8 @@ $(document).ready(function () {
   const HTML_EDITOR_ID = "editor";
   const HTML_OUTPUT_ID = "output";
   const HTML_INPUT_ID = "stdin";
-  const HTML_RUN_BTN_ID = "interpret";
-  const HTML_DELAY_ID = "delay";
+  const HTML_RUN_BTN_ID = "interpretButton";
+  const HTML_DELAY_ID = "delayRange";
   const HTML_MEMORY_ID = "memory-container";
 
   const MEMORY_SIZE_LIMIT = 256;

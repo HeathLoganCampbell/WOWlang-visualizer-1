@@ -18,6 +18,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body>
+<nav class="navbar navbar-light bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">WOWLang</a>
+  </div>
+</nav>
+
+
     <div id = "editorContainer">
         <textarea class="codemirror-textarea" id="editor" rows="4" cols="50" spellcheck="false" >
 WOW WOW WOW WOW WOW WOW WOW WOW WOw woW WOW WOW WOW WOW WOW WOW 
@@ -31,25 +38,31 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
         </textarea>
     </div>
 
-    <div id = "controlContainer">
-        <div>
-            <div>
-                <label for="delayRange" class="form-label">Delay</label>
-                <input type="range" class="form-range" id="delayRange" min="0" max="10" value="5">
+    <div id="controlContainer">
+        <div id="inputContainer" class="container">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="delayRange" class="form-label">Delay</label>
+                    <input type="range" class="form-range" id="delayRange" min="0" max="10" value="5">
+                </div>
+                <div class="col-md-6">
+                    <label for="stdin">Input</label>
+                    <input class="form-control" id="stdin">
+                    <small id="stdin" class="form-text text-muted">space separated integer values</small>
+                </div>
             </div>
-    
-            <div>
-                <label for="stdin">input</label>
-                <input class="form-control" id="stdin">
-                <small id="stdin" class="form-text text-muted">space separated integer values</small>
+            
+            <div class="row mb-5">
+                <button id="interpretButton" type="button" class="btn btn-secondary col-md-3 offset-md-9">Interpret</button>
             </div>
-    
-            <button id="interpret" type="button">Interpret</button>
-    
-            <div>
-                <label for="output">output</label>
-                <textarea class="form-control" id="output" rows="4" cols="50"></textarea>
+
+            <div class="row">
+                <div>
+                    <label for="output">Output</label>
+                    <textarea class="form-control" id="output" rows="4" cols="50"></textarea>
+                </div>
             </div>
+
         </div>
 
         <div id="memory-container">
