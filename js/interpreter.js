@@ -1,16 +1,5 @@
 
 $(document).ready(function () {
-  var editor = CodeMirror.fromTextArea($("#editor")[0],{
-    lineNumbers: true,
-    theme: "blackboard",
-    styleSelectedText: true
-  });
-
-  var WOW = new Audio('./sound/WOW.mp3');
-  var wow = new Audio('./sound/wow1.mp3');
-
-  var mark = editor.markText({line: 0, ch: 0}, {line: 0, ch: 0});
-
   const CMD_MEMORY_VAL_INC = "WOW";
   const CMD_MEMORY_VAL_DEC = "wow";
   const CMD_MEMORY_POS_INC = "woW";
@@ -33,11 +22,112 @@ $(document).ready(function () {
   const MEMORY_SIZE_LIMIT = 256;
   const DELAY_MULTIPLIER = 100;
 
+  CodeMirror.defineMode("wow", function() {
+    return {
+      startState: function() {
+        return {
+          commentLine: false,
+          left: 0,
+          right: 0,
+          commentLoop: false
+        }
+      },
+      token: function(stream, state) 
+      {
+        if (stream.eatSpace()) 
+        {
+          return null
+        }
+
+        if(stream.sol())
+        {
+          state.commentLine = false;
+        }
+
+        var token = "";
+        for(var i = 0; i < 4; i++)
+        {
+          var ch = stream.next()
+
+          if(ch == ' ' || ch == undefined)
+          {
+            break;
+          }
+
+          token += ch
+        }
+
+        if(state.commentLine === true)
+        {
+          if(stream.eol())
+          {
+            state.commentLine = false;
+          }
+
+          return "comment";
+        }
+
+        if(token === CMD_LOOP_CLOSE || token === CMD_LOOP_OPEN){
+          if(token === CMD_LOOP_OPEN){
+            state.left++;
+          }
+          else
+          {
+            state.right++;
+          }
+
+          return "bracket";
+        }
+        else if(token === CMD_MEMORY_VAL_INC || token === CMD_MEMORY_VAL_DEC)
+        {
+          return "keyword";
+        }
+        else if(token === CMD_MEMORY_POS_DEC || token === CMD_MEMORY_POS_INC)
+        {
+          return "math";
+        }
+        else if(token === CMD_OUTPUT || token === CMD_INPUT)
+        {
+          return "function";
+        }
+        else if(token === CMD_MEMORY_VAL_SET_ZERO )
+        {
+          return "val-set-zero";
+        }
+        else if(token === CMD_ADD_FROM_REG )
+        {
+          return "add-from-reg";
+        }
+        else if(token === CMD_COPY_TO_REG )
+        {
+          return "copy-to-reg";
+        }
+
+        if(stream.eol()){
+          state.commentLine = false;
+        }
+      }
+    };
+  });
+
+  var editor = CodeMirror.fromTextArea($("#editor")[0],{
+    lineNumbers: true,
+    theme: "blackboard",
+    styleSelectedText: true,
+    mode: "wow"
+  });
+
+  var WOW = new Audio('./sound/WOW.mp3');
+  var wow = new Audio('./sound/wow1.mp3');
+
+  var mark = editor.markText({line: 0, ch: 0}, {line: 0, ch: 0});
+
   $("#" + HTML_RUN_BTN_ID).click(function () {
     interpret(editor.getValue());
   });
 
-  async function interpret(s) {
+  async function interpret(s) 
+  {
     var lines = s.split(/\r?\n/);
     var lineLengths = [];
     lines.forEach(line => lineLengths.push(line.length + 1));
@@ -52,9 +142,11 @@ $(document).ready(function () {
     var current_input_pos = 0;
 
     var i = 0;
-    while (i < s.length - 2) {
+    while (i < s.length - 2) 
+    {
       i += 3;
-      switch (s.substring(i - 3, i)) {
+      switch (s.substring(i - 3, i)) 
+      {
         case CMD_MEMORY_VAL_DEC:
           wow.play();
           mem[mem_pos] = (((mem[mem_pos]-1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
@@ -66,11 +158,14 @@ $(document).ready(function () {
           break;
 
         case CMD_MEMORY_POS_INC:
-          if (mem_pos == mem.length - 1) {
+          if (mem_pos == mem.length - 1) 
+          {
             mem.push(0);
           }
+
           mem_pos++;
-          if (parseInt($('#' + HTML_MEMORY_ID).children().last().attr('id').substring(4)) < Math.floor(mem_pos / 8)) {
+          if (parseInt($('#' + HTML_MEMORY_ID).children().last().attr('id').substring(4)) < Math.floor(mem_pos / 8)) 
+          {
             $("#" + HTML_MEMORY_ID).append("<div id=\"line" + Math.floor(mem_pos / 8) + "\">"+  (Math.floor(mem_pos / 8) * 8).toString().padStart(8,0) +" 00 00 00 00 00 00 00 00 ........</div>");
           }
           processLine(mem, mem_pos);
@@ -86,9 +181,11 @@ $(document).ready(function () {
           break;
 
         case CMD_LOOP_CLOSE:
-          if (mem[mem_pos] != 0) {
+          if (mem[mem_pos] != 0) 
+          {
             i = brac_open_pos[brac_open_pos.length - 1];
           }
+
           highlightElement(i-3,lineLengths,3);
           await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
           break;
@@ -131,8 +228,10 @@ $(document).ready(function () {
           highlightElement(i-3,lineLengths,3);
           await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
           break;
+
         default:
-          switch (s.substring(i - 3, i + 1)){
+          switch (s.substring(i - 3, i + 1))
+          {
             case CMD_COPY_TO_REG:
               reg = mem[mem_pos];
               i++;
@@ -154,30 +253,39 @@ $(document).ready(function () {
     editor.setOption("readOnly", false);
   }
 
-  function processLine(mem, mem_pos) {
+  function processLine(mem, mem_pos) 
+  {
     $('#memory-container').find('span').contents().unwrap();
     var startPos = Math.floor(mem_pos / 8) * 8;
     var output = startPos.toString().padStart(8,0) + " ";
     var display = "";
     for (var i = startPos; i < startPos + 8; i++) {
-      if (i == mem_pos) {
+      if (i == mem_pos)
+      {
         output += " <span class=\"current-memory\"> "
         display += "<span class=\"current-memory\">"
       }
-      if (i > mem.length - 1) {
+
+      if (i > mem.length - 1) 
+      {
         output += "00 ";
         display += ".";
       }
-      else {
+      else 
+      {
         output += mem[i].toString(16).toUpperCase().padStart(2, '0') + " ";
-        if ((mem[i] >= 32) && (mem[i] < 127)) {
+        if ((mem[i] >= 32) && (mem[i] < 127)) 
+        {
           display += String.fromCharCode(mem[i]);
         }
-        else {
+        else 
+        {
           display += ".";
         }
       }
-      if (i == mem_pos) {
+
+      if (i == mem_pos) 
+      {
         output += " </span> "
         display += "</span>"
       }
@@ -192,11 +300,14 @@ $(document).ready(function () {
 
     var currLine = 0;
 
-    while (true){
-      if (pos>=lineLengths[currLine]){
+    while (true)
+    {
+      if (pos>=lineLengths[currLine])
+      {
         pos-=lineLengths[currLine++];
       }
-      else{
+      else
+      {
         //deal with line breaks
         mark = editor.markText({line: currLine, ch: pos}, {line: currLine, ch: pos + length}, {css: "background-color : red"});
         break;
@@ -204,9 +315,8 @@ $(document).ready(function () {
     }
   }
 
-  function sleep(ms) {
+  function sleep(ms) 
+  {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
-
-
 });

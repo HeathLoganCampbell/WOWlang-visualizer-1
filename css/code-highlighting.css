@@ -1,0 +1,39 @@
+.cm-add-from-reg
+{
+    color: red;
+}
+
+.cm-val-set-zero
+{
+    color: blue;
+}
+
+.cm-copy-to-reg
+{
+    color: yellow;
+}
+
+.cm-copy-to-reg
+{
+    color: yellow;
+}
+
+.cm-bracket
+{
+    color: green;
+}
+
+.cm-keyword
+{
+    color: green;
+}
+
+.cm-math
+{
+    color: rgb(199, 255, 68);
+}
+
+.cm-function
+{
+    color: rgb(66, 73, 49);
+}
