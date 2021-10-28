@@ -41,7 +41,7 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
 
     <div id="controlContainer">
         <div id="inputContainer" class="container">
-            <div id="commands" class="row mb-5 p-3 border border-primary rounded">
+            <div id="commands" class="row">
                 <h4 id="commandsHeader" class="mb-3">Commands</h4>
                 <div class="col-md-6">
                     <code>WOW</code>: Increment value<br>
@@ -59,8 +59,8 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
                     <code>w0w</code>: Reset register value
                 </div>
             </div>
-
-            <div class="row mb-3">
+            <hr/>
+            <div class="row mb-3 mt-4">
                 <div class="col-md-4">
                     <label for="delayRange" class="form-label">Delay</label>
                     <input type="range" class="form-range" id="delayRange" min="0" max="10" value="5">
@@ -79,7 +79,18 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
                         <label class="form-check-label" for="SoundSwitch">Play Sound</label>
                       </div>
                 </div>
-                <button id="interpretButton" type="button" class="btn btn-secondary col-md-3 offset-md-6">Interpret</button>
+                <div class="col-md-1 offset-md-4">
+                    <button type="button" id="interpretButton" class="btn btn-secondary control-button"><i class="bi bi-play-fill"></i></button>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="" class="btn btn-secondary control-button"><i class="bi bi-pause-fill"></i></button>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="" class="btn btn-secondary control-button"><i class="bi bi-stop-fill"></i></button>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="" class="btn btn-secondary control-button"><i class="bi bi-skip-forward-fill"></i></button>
+                </div>
             </div>
 
             <div class="row">
