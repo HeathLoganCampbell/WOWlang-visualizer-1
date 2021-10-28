@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
   const CMD_MEMORY_VAL_INC = "WOW";
   const CMD_MEMORY_VAL_DEC = "wow";
@@ -119,6 +118,7 @@ $(document).ready(function () {
 
   var WOW = new Audio('./sound/WOW.mp3');
   var wow = new Audio('./sound/wow1.mp3');
+  var isMuted = false;
 
   var mark = editor.markText({line: 0, ch: 0}, {line: 0, ch: 0});
 
@@ -148,13 +148,12 @@ $(document).ready(function () {
       switch (s.substring(i - 3, i)) 
       {
         case CMD_MEMORY_VAL_DEC:
-          wow.play();
+          playSound(wow);
           mem[mem_pos] = (((mem[mem_pos]-1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
           await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
-          wow.pause();
-          wow.currentTime = 0;
+          stopSound(wow);
           break;
 
         case CMD_MEMORY_POS_INC:
@@ -215,12 +214,11 @@ $(document).ready(function () {
 
         case CMD_MEMORY_VAL_INC:
           mem[mem_pos] = (((mem[mem_pos]+1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
-          WOW.play();
+          playSound(WOW);
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
           await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
-          WOW.pause();
-          WOW.currentTime = 0;
+          stopSound(WOW);
           break;
 
         case CMD_MEMORY_VAL_SET_ZERO:
@@ -251,6 +249,19 @@ $(document).ready(function () {
     }
     mark.clear();
     editor.setOption("readOnly", false);
+  }
+
+  function playSound(sound)
+  {
+    if (!isMuted){
+      sound.play();
+    }
+  }
+
+  function stopSound(sound)
+  {
+    sound.pause();
+    sound.currentTime = 0;
   }
   
   function memoryToAssci(memory, index, length)
@@ -387,4 +398,8 @@ $(document).ready(function () {
   {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
+});
+
+$('#soundSwitch').on('change.bootstrapSwitch', function(e) {
+  console.log(e.target.checked);
 });

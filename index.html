@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/code-highlighting.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     <script
   src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -47,8 +48,8 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
                     <code>wow</code>: Decrement value<br>
                     <code>woW</code>: Move register pointer to right<br>
                     <code>Wow</code>: Move register pointer to left<br>
-                    <code>wOw</code>: Read input value to register<br>
-                    <code>WoW</code>: Output current register value
+                    <code>wOw</code>: Read input value to the current memory position<br>
+                    <code>WoW</code>: Output current memory position value
                 </div>
                 <div class="col-md-6">
                     <code>WOw</code>: Open loop<br>
@@ -60,11 +61,11 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
             </div>
 
             <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="delayRange" class="form-label">Delay</label>
                     <input type="range" class="form-range" id="delayRange" min="0" max="10" value="5">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <label for="stdin">Input</label>
                     <input class="form-control" id="stdin">
                     <small id="stdin" class="form-text text-muted">space separated integer values</small>
@@ -72,7 +73,13 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
             </div>
             
             <div class="row mb-5">
-                <button id="interpretButton" type="button" class="btn btn-secondary col-md-3 offset-md-9">Interpret</button>
+                <div class="col-md-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="SoundSwitch" checked>
+                        <label class="form-check-label" for="SoundSwitch">Play Sound</label>
+                      </div>
+                </div>
+                <button id="interpretButton" type="button" class="btn btn-secondary col-md-3 offset-md-6">Interpret</button>
             </div>
 
             <div class="row">
