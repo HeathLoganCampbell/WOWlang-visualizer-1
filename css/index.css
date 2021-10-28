@@ -25,7 +25,7 @@
 	padding: 5%;
 }
   
-#memory-container{
+#memory-container {
 	position: fixed;
 	font-family: monospace;
 	width: 50%;
@@ -34,6 +34,9 @@
 	font-size: 1vw;
 	padding: 15px;
 	text-align: center;
+}
+#owenWilsonFace {
+	height: 100%;
 }
 
 .current-memory{

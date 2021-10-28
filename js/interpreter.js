@@ -152,7 +152,9 @@ $(document).ready(function () {
           mem[mem_pos] = (((mem[mem_pos]-1)%MEMORY_SIZE_LIMIT)+MEMORY_SIZE_LIMIT)%MEMORY_SIZE_LIMIT;
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
-          await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
+          await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER/2);
+          $("#owenWilsonFace").attr("src","img/owen_wilson_closed_mouth.png");
+          await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER/2);
           stopSound(wow);
           break;
 
@@ -217,7 +219,9 @@ $(document).ready(function () {
           playSound(WOW);
           processLine(mem, mem_pos);
           highlightElement(i-3,lineLengths,3);
-          await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
+          await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER/2);
+          $("#owenWilsonFace").attr("src","img/owen_wilson_closed_mouth.png");
+          await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER/2);
           stopSound(WOW);
           break;
 
@@ -256,6 +260,7 @@ $(document).ready(function () {
     if (!isMuted){
       sound.play();
     }
+    $("#owenWilsonFace").attr("src","img/owen_wilson_open_mouth.png");
   }
 
   function stopSound(sound)
