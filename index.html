@@ -106,10 +106,19 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
         </div>
 
         <div id="memory-container" class="bg-light">
-            <select class="form-select" >
-              <option value="hex">HEX</option>
-              <option value="dec">DEC</option>
-            </select>
+            <div class="row">
+                <div class="col-md-8">
+                    <select class="form-select" >
+                        <option value="hex">HEX</option>
+                        <option value="dec">DEC</option>
+                      </select>
+                </div>
+                <div class="col-md-4">
+                    <div id="registerContainer">
+                        Register: <div id="registerValue">00</div>
+                    </div>
+                </div>
+            </div>
 <!--     
             <div id="line0">
                 00000000 00 00 00 00 00 00 00 00 ........

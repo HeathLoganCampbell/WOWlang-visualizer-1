@@ -148,6 +148,9 @@ $(document).ready(function () {
     var input = $("#" + HTML_INPUT_ID).val().split(" ");
     var current_input_pos = 0;
 
+    $('#registerValue').text("00");
+
+
     var i = 0;
     while (i < s.length - 2) 
     {
@@ -247,6 +250,8 @@ $(document).ready(function () {
           {
             case CMD_COPY_TO_REG:
               reg = mem[mem_pos];
+              // TODO: add hex/dec formatting
+              $('#registerValue').text(reg);
               i++;
               highlightElement(i-4,lineLengths,4);
               await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
