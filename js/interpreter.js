@@ -235,13 +235,13 @@ $(document).ready(function () {
             case CMD_COPY_TO_REG:
               reg = mem[mem_pos];
               i++;
-              highlightElement(i-3,lineLengths,4);
+              highlightElement(i-4,lineLengths,4);
               await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
             break;
             case CMD_ADD_FROM_REG:
               mem[mem_pos] += reg;
               i++;
-              highlightElement(i-3,lineLengths,4);
+              highlightElement(i-4,lineLengths,4);
               await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
             break;
             default:
