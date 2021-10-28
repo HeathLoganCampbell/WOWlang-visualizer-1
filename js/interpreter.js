@@ -119,6 +119,8 @@ $(document).ready(function () {
   var WOW = new Audio('./sound/WOW.mp3');
   var wow = new Audio('./sound/wow1.mp3');
   var isMuted = false;
+  var isRunning = false;
+  var isStopped = false;
 
   var mark = editor.markText({line: 0, ch: 0}, {line: 0, ch: 0});
 
@@ -128,6 +130,11 @@ $(document).ready(function () {
 
   async function interpret(s) 
   {
+    if (isRunning) {
+      return;
+    }
+
+    isRunning = true;
     var lines = s.split(/\r?\n/);
     var lineLengths = [];
     lines.forEach(line => lineLengths.push(line.length + 1));
@@ -144,6 +151,10 @@ $(document).ready(function () {
     var i = 0;
     while (i < s.length - 2) 
     {
+      if (isStopped) {
+        break;
+      }
+
       i += 3;
       switch (s.substring(i - 3, i)) 
       {
@@ -247,12 +258,16 @@ $(document).ready(function () {
               await sleep($("#" + HTML_DELAY_ID).val() * DELAY_MULTIPLIER);
             break;
             default:
-            i -=2;
+            i-=2;
           }
       }
     }
     mark.clear();
     editor.setOption("readOnly", false);
+    isRunning = false;
+    isStopped = false;
+
+    //need to reset memory if the program is stopped, not ended
   }
 
   function playSound(sound)
@@ -406,6 +421,10 @@ $(document).ready(function () {
 
   $('#soundSwitch').on('change', function() {
     isMuted = !$(this).is(':checked');
+  });
+
+  $('#stopButton').click(function(){
+    isStopped = true;
   });
 });
 
