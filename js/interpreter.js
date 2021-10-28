@@ -398,8 +398,9 @@ $(document).ready(function () {
   {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
+
+  $('#soundSwitch').on('change', function() {
+    isMuted = !$(this).is(':checked');
+  });
 });
 
-$('#soundSwitch').on('change.bootstrapSwitch', function(e) {
-  console.log(e.target.checked);
-});
