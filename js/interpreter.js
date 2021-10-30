@@ -140,7 +140,6 @@ $(document).ready(function () {
     lines.forEach(line => lineLengths.push(line.length + 1));
 
     editor.setOption("readOnly", "nocursor");
-    $("#memory-container").html("<div id=\"line0\">"+ "00000000 00 00 00 00 00 00 00 00 ........</div><div id=\"line1\">"+ "00000008 00 00 00 00 00 00 00 00 ........</div><div id=\"line2\">"+ "00000016 00 00 00 00 00 00 00 00 ........</div>");
     var mem = [0];
     var mem_pos = 0;
     var reg = 0;
@@ -288,115 +287,10 @@ $(document).ready(function () {
     sound.pause();
     sound.currentTime = 0;
   }
-  
-  function memoryToAssci(memory, index, length)
-  {
-    var stringbuilder = "";
-
-    for(var i = 0; i < length; i++)
-    {
-      var cellVal = memory[index + i];
-      var isAsciiChar = (32 <= cellVal && cellVal <= 126)
-
-      if (cellVal == undefined || !isAsciiChar) 
-      {
-        stringbuilder += "."
-        continue;
-      }
-      
-      stringbuilder += String.fromCharCode(memory[index + i]);
-    }
-
-    return stringbuilder;
-  }
-
-  function memoryToCellList(memory, byteLine, length)
-  {
-    var cells = {}
-
-    for(var i = 0; i < length; i++)
-    {
-      var value = memory[i + byteLine]
-      if(value == undefined)
-      {
-        value = 0
-      }
-
-      cells[i + byteLine] = { Value: value }
-    }
-
-    return cells;
-  }
-
-  /*
-  We assume that every row will contain 8 bytes
-
-  {
-    StartingCellIndex: 0,
-    Cells: {
-      0: { Value: 0 },
-      1: { Value: 0 },
-      2: { Value: 0 },
-      ...
-    },
-    AsciiValue: "........"
-  }
-  */
-  function memoryToDisplayObj(memory, byteLine, length)
-  {
-    var obj = {
-      StartingCellIndex: byteLine,
-      Cells: memoryToCellList(memory, byteLine, length),
-      AsciiValue: memoryToAssci(memory, byteLine, length)
-    };
-
-    return obj;
-  }
 
   function processLine(mem, mem_pos) 
   {
-    $('#memory-container').find('span').contents().unwrap();
-    var startPos = Math.floor(mem_pos / 8) * 8;
-    var output = startPos.toString().padStart(8,0) + " ";
-
-    console.log(memoryToDisplayObj(mem, startPos, 8))
-
-    var display = "";
-    for (var i = startPos; i < startPos + 8; i++)
-    {
-      if (i == mem_pos)
-      {
-        output += " <span class=\"current-memory\"> "
-        display += "<span class=\"current-memory\">"
-      }
-
-      if (i > mem.length - 1) 
-      {
-        output += "00 ";
-        display += ".";
-      }
-      else 
-      {
-        output += mem[i].toString(16).toUpperCase().padStart(2, '0') + " ";
-        if ((mem[i] >= 32) && (mem[i] < 127)) 
-        {
-          display += String.fromCharCode(mem[i]);
-        }
-        else 
-        {
-          display += ".";
-        }
-      }
-
-      if (i == mem_pos) 
-      {
-        output += " </span> "
-        display += "</span>"
-      }
-    }
-    output += " " + display;
-
-    $("#line" + Math.floor(mem_pos / 8)).html(output);
+    generateTable(mem, mem_pos)
   }
 
   function highlightElement(pos, lineLengths, length){

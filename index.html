@@ -13,6 +13,7 @@
   src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
   integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
   crossorigin="anonymous"></script>
+    <script src="js/memory-display/memory-display.js"></script>
     <script src="js/interpreter.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"></script>
     <script src="js/mark-selection.js"></script>
@@ -131,8 +132,8 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
             <div id="line2">
                 00000016 00 00 00 00 00 00 00 00 ........
             </div> -->
-
-            <table class="table">
+<!-- 
+            <table class="table" id="memory-display">
                 <thead>
                     <tr>
                     <th scope="col">0x</th>
@@ -189,14 +190,31 @@ wow wow WoW Wow Wow Wow Wow WOW WoW
                         <td>........</td>
                     </tr>
                 </tbody>
+            </table> -->
+            <table class="table" id="memory-display">
+                <thead>
+                    <tr>
+                    <th scope="col">0x</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Ascii</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-        })
+        $(function () {$('[data-toggle="tooltip"]').tooltip()})
     </script>
 </body>
 </html>
