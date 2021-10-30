@@ -83,6 +83,8 @@ function displayObjToTableRow(displayObj)
 
       var cellEle = $("<td>" + cell.Value + "</td>");
 
+      cellEle.attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title",  "0x" + decimalToHex(pointer, 4))
+
       if(cell.Pointer == true)
       {
         cellEle.addClass("current-memory")
