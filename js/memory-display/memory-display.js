@@ -73,7 +73,7 @@ function displayObjToTableRow(displayObj)
   $('#memory-display #' + displayObj.StartingCellIndex).remove(); 
   var tr = $('<tr id="' + displayObj.StartingCellIndex + '"/>');
     
-  tr.append("<td>" + displayObj.StartingCellIndex + "</td>");
+  tr.append("<td> 0x" + decimalToHex(displayObj.StartingCellIndex, 4) + "</td>");
 
   var keys = Object.keys(displayObj.Cells)
   for (var j = 0; j < keys.length; j++) 
@@ -110,6 +110,18 @@ function populateEmptyTable()
   generateTable([], 0)
 }
 
+function decimalToHex(d, padding) {
+  var hex = Number(d).toString(16);
+  padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+
+  while (hex.length < padding) {
+      hex = "0" + hex;
+  }
+
+  return hex;
+}
+
 $(document).ready(function () {
   populateEmptyTable();
 });
+
